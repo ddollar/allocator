@@ -13,6 +13,11 @@ recalc_current_total = (assets) ->
   total += asset.value for klass, asset of assets
   total
 
+remove_unaffordable_assets = (assets, price) ->
+  new_assets = assets
+  delete new_assets[klass] for klass, asset of assets when asset.price > price
+  new_assets
+
 find_optimal_purchase = (assets) ->
   sorted = dd.values(assets).sort (a, b) ->
     ((b.target_value - b.value) - (a.target_value - a.value))
@@ -44,16 +49,19 @@ app.post "/allocate", (req, res) ->
   done = false
   purchases = {}
 
+  current_total = recalc_current_total(assets)
+
   until done
-    current_total = recalc_current_total(assets)
     recalc_target_value assets, new_total
-    optimal = find_optimal_purchase assets
-    if optimal.price > (new_total - current_total)
+    assets = remove_unaffordable_assets(assets, new_total - current_total)
+    if dd.keys(assets).length is 0
       done = true
     else
+      optimal = find_optimal_purchase assets
       purchases[optimal.ticker] ||= 0
       purchases[optimal.ticker] +=  1
       assets[optimal.klass].value += optimal.price
+      current_total += optimal.price
 
   purchase_array = []
   purchase_array.push(ticker:ticker, amount:amount) for ticker, amount of purchases
