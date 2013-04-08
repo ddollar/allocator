@@ -1,0 +1,37 @@
+style
+
+  td, th {
+    padding: 8px 12px;
+  }
+
+  table#summary th {
+    text-align: right;
+  }
+
+  table#summary td {
+    padding-right: 40px;
+  }
+
+h3 Summary
+
+table#summary
+  tr
+    th Total Invested
+    td= format_currency(current_total)
+    th Total Available
+    td= format_currency(new_total)
+    th Remaining Cash
+    td= format_currency(new_total - current_total)
+
+h3 Allocation
+
+table#allocation
+  thead
+    tr
+      th Ticker
+      th Amount
+  tbody
+    each purchase in purchases
+      tr
+        td= purchase.ticker
+        td= purchase.amount
