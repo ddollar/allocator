@@ -1,7 +1,5 @@
-async   = require("async")
 dd      = require("ddollar")
 express = require("express")
-log     = require("logfmt")
 stdweb  = require("stdweb")
 
 app = stdweb("allocator")

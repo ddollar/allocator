@@ -3,11 +3,9 @@
   "version": "0.0.1",
 
   "dependencies": {
-    "async":         "~0.2.10",
     "coffee-script": "~1.7.1",
     "ddollar":       "~0.0.4",
     "express":       "~3.5.1",
-    "logfmt":        "~1.1.1",
     "nodemon":       "~1.0.17",
     "stdweb":        "~0.4.8"
   },
