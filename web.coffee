@@ -10,8 +10,6 @@ app.get "/", (req, res) ->
   res.send "ok"
 
 app.post "/allocate", (req, res) ->
-  console.log "req.body", req.body
-
   remaining = parseFloat(req.body.amount)
 
   desired = req.body.desired.split(",")
