@@ -33,7 +33,7 @@ app.post "/allocate", (req, res) ->
     remaining -= securities[buy].price
 
   allocate = dd.reduce dd.keys(securities), {}, (ax, ticker) ->
-    ax[ticker.index] = securities[ticker].qty
+    ax[securities[ticker].index] = securities[ticker].qty
     ax
 
   res.send JSON.stringify(remaining:remaining.toFixed(2), allocate:allocate, null, 2)
